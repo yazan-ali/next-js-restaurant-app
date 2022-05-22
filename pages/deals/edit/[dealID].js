@@ -1,38 +1,28 @@
-import useInput from '../../../hooks/useInput';
+import { useState } from 'react';
+import useItemUpdate from '../../../hooks/useUpdateItem';
+import Input from '../../../components/input';
 
-function EditDeal({ deal, dealID }) {
+function EditDeal({ Deal, dealID }) {
 
-    const [dealName, setDealName] = useInput(deal.name);
-    const [dealImg, setDealImg] = useInput(deal.img);
-    const [dealDescription, setDealDescription] = useInput(deal.description);
-    const [dealPrice, setDealPrice] = useInput(deal.price);
+    const [status, updateDeal] = useItemUpdate();
+    const [deal, setDeal] = useState(Deal);
+
+    const onChange = (evt) => {
+        setDeal({ ...deal, [evt.target.name]: evt.target.value })
+    }
 
     const submitUpdatedDeal = async (evt) => {
         evt.preventDefault();
 
-        const updatedDeal = {
-            img: dealImg,
-            name: dealName,
-            description: dealDescription,
-            price: dealPrice
-        }
-
-        const response = await fetch(`http://localhost:5000/deals/${dealID}`, {
-            method: "PUT",
-            body: JSON.stringify(updatedDeal),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await response.json();
+        updateDeal(`http://localhost:5000/deals/${dealID}`, deal);
     }
 
     return (
         <form onSubmit={submitUpdatedDeal}>
-            <input type="text" value={dealName} onChange={setDealName} />
-            <input type="text" value={dealPrice} onChange={setDealPrice} />
-            <input type="text" value={dealImg} onChange={setDealImg} />
-            <input type="text" value={dealDescription} onChange={setDealDescription} />
+            <Input name="name" value={deal?.name} onChange={onChange} placeholder="deal name" />
+            <Input name="img" value={deal?.img} onChange={onChange} placeholder="deal img" />
+            <Input name="description" value={deal?.description} onChange={onChange} placeholder="deal description" />
+            <Input name="price" value={deal?.price} onChange={onChange} placeholder="deal price" />
             <button type="submit">Update deal</button>
         </form>
     )
@@ -50,7 +40,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            deal: data,
+            Deal: data,
             dealID
         },
     }

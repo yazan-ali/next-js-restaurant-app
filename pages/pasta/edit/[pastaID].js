@@ -1,34 +1,30 @@
-import useInput from '../../../hooks/useInput';
+import { useState } from 'react';
 import useItemUpdate from '../../../hooks/useUpdateItem';
+import Input from '../../../components/input';
 
-function EditPasta({ pasta, pastaID }) {
+function EditPasta({ Pasta, pastaID }) {
 
     const [status, updatePasta] = useItemUpdate();
-    const [pastaName, setPastaName] = useInput(pasta.name);
-    const [pastaImg, setPastaImg] = useInput(pasta.img);
-    const [pastaDescription, setPastaDescription] = useInput(pasta.description);
-    const [pastaPrice, setPastaPrice] = useInput(pasta.price);
+    const [pasta, setPasta] = useState(Pasta)
+
+    const onChange = (evt) => {
+        setPasta({ ...pasta, [evt.target.name]: evt.target.value })
+    }
+
+
 
     const submitUpdatedPasta = async (evt) => {
         evt.preventDefault();
 
-        const updatedPasta = {
-            img: pastaImg,
-            name: pastaName,
-            description: pastaDescription,
-            price: pastaPrice
-        }
-
-        updatePasta(`http://localhost:5000/pasta/${pastaID}`, updatedPasta);
+        updatePasta(`http://localhost:5000/pasta/${pastaID}`, pasta);
     }
 
     return (
         <form onSubmit={submitUpdatedPasta}>
-            <h1>{status}</h1>
-            <input type="text" value={pastaName} onChange={setPastaName} />
-            <input type="text" value={pastaPrice} onChange={setPastaPrice} />
-            <input type="text" value={pastaImg} onChange={setPastaImg} />
-            <input type="text" value={pastaDescription} onChange={setPastaDescription} />
+            <Input name="name" value={pasta?.name} onChange={onChange} placeholder="pasta name" />
+            <Input name="img" value={pasta?.img} onChange={onChange} placeholder="pasta img" />
+            <Input name="description" value={pasta?.description} onChange={onChange} placeholder="pasta description" />
+            <Input name="price" value={pasta?.price} onChange={onChange} placeholder="pasta price" />
             <button type="submit">Update Pasta</button>
         </form>
     )
@@ -46,7 +42,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            pasta: data,
+            Pasta: data,
             pastaID
         },
     }

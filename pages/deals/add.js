@@ -1,36 +1,29 @@
-import useInput from '../../hooks/useInput';
+import { useState } from 'react';
+import Input from '../../components/input';
+import useAddItem from '../../hooks/useAddItem';
+
 function AddNewDeal() {
 
-    const [dealName, setDealName] = useInput("");
-    const [dealPrice, setDealPrice] = useInput("");
-    const [dealImg, setDealImg] = useInput("");
-    const [dealDescription, setDealDescription] = useInput("");
+    const [deal, setDeal] = useState({});
+    const [status, addDeal] = useAddItem();
+
+
+    const onChange = (evt) => {
+        setDeal({ ...deal, [evt.target.name]: evt.target.value })
+    }
 
     const addNewDeal = async (evt) => {
         evt.preventDefault();
-        const newDeal = {
-            price: dealPrice,
-            img: dealImg,
-            name: dealName,
-            description: dealDescription,
-        }
 
-        const response = await fetch("http://localhost:5000/deals", {
-            method: "POST",
-            body: JSON.stringify(newDeal),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await response.json();
+        addDeal("http://localhost:5000/deals", deal)
     }
 
     return (
         <form onSubmit={addNewDeal}>
-            <input type="text" value={dealName} onChange={setDealName} />
-            <input type="text" value={dealPrice} onChange={setDealPrice} />
-            <input type="text" value={dealImg} onChange={setDealImg} />
-            <input type="text" value={dealDescription} onChange={setDealDescription} />
+            <Input name="name" value={deal?.name} onChange={onChange} placeholder="deal name" />
+            <Input name="img" value={deal?.img} onChange={onChange} placeholder="deal img" />
+            <Input name="description" value={deal?.description} onChange={onChange} placeholder="deal description" />
+            <Input name="price" value={deal?.price} onChange={onChange} placeholder="deal price" />
             <button type="submit">Add New Deal</button>
         </form>
     )

@@ -1,9 +1,13 @@
+function Input({ value, name, placeholder, onChange, }) {
 
-
-function Input() {
     return (
-        // <input type="text" value={ } onChange={ } />
-        <></>
+        <input
+            type="text"
+            value={value}
+            name={name}
+            onChange={onChange}
+            placeholder={placeholder}
+        />
     )
 }
 

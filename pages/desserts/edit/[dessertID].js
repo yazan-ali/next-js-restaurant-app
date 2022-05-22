@@ -1,38 +1,29 @@
-import useInput from '../../../hooks/useInput';
+import { useState } from 'react';
+import useItemUpdate from '../../../hooks/useUpdateItem';
+import Input from '../../../components/input';
 
-function EditDessert({ dessert, dessertID }) {
+function EditDessert({ Dessert, dessertID }) {
 
-    const [dessertName, setDessertName] = useInput(dessert.name);
-    const [dessertImg, setDessertImg] = useInput(dessert.img);
-    const [dessertDescription, setDessertDescription] = useInput(dessert.description);
-    const [dessertPrice, setDessertPrice] = useInput(dessert.price);
+    const [status, updateDessert] = useItemUpdate();
+    const [dessert, setDessert] = useState(Dessert)
+
+
+    const onChange = (evt) => {
+        setDessert({ ...dessert, [evt.target.name]: evt.target.value })
+    }
 
     const submitUpdatedDessert = async (evt) => {
         evt.preventDefault();
 
-        const updatedDessert = {
-            img: dessertImg,
-            name: dessertName,
-            description: dessertDescription,
-            price: dessertPrice
-        }
-
-        const response = await fetch(`http://localhost:5000/desserts/${dessertID}`, {
-            method: "PUT",
-            body: JSON.stringify(updatedDessert),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await response.json();
+        updateDessert(`http://localhost:5000/desserts/${dessertID}`, dessert);
     }
 
     return (
         <form onSubmit={submitUpdatedDessert}>
-            <input type="text" value={dessertName} onChange={setDessertName} />
-            <input type="text" value={dessertPrice} onChange={setDessertPrice} />
-            <input type="text" value={dessertImg} onChange={setDessertImg} />
-            <input type="text" value={dessertDescription} onChange={setDessertDescription} />
+            <Input name="name" value={dessert?.name} onChange={onChange} placeholder="dessert name" />
+            <Input name="img" value={dessert?.img} onChange={onChange} placeholder="dessert img" />
+            <Input name="description" value={dessert?.description} onChange={onChange} placeholder="dessert description" />
+            <Input name="price" value={dessert?.price} onChange={onChange} placeholder="dessert price" />
             <button type="submit">Update dessert</button>
         </form>
     )
@@ -50,7 +41,7 @@ export async function getServerSideProps(context) {
 
     return {
         props: {
-            dessert: data,
+            Dessert: data,
             dessertID
         },
     }

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
-function useItemUpdate() {
+function useAddItem() {
 
     const [state, setState] = useState(null);
 
-    const handleItemUpdate = async (url, body) => {
+    const handleAddItem = async (url, body) => {
+        console.log(body)
         const response = await fetch(url, {
-            method: "PUT",
+            method: "POST",
             body: JSON.stringify(body),
             headers: {
                 "Content-Type": "application/json"
@@ -16,7 +17,7 @@ function useItemUpdate() {
         setState(data)
     }
 
-    return [state, handleItemUpdate];
+    return [state, handleAddItem];
 }
 
-export default useItemUpdate;
+export default useAddItem;

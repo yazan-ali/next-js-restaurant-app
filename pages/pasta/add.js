@@ -1,36 +1,28 @@
-import useInput from '../../hooks/useInput';
+import { useState } from 'react';
+import useAddItem from '../../hooks/useAddItem';
+import Input from '../../components/input';
+
 function AddNewPasta() {
 
-    const [pastaName, setPastaName] = useInput("");
-    const [pastaPrice, setPastaPrice] = useInput("");
-    const [pastaImg, setPastaImg] = useInput("");
-    const [pastaDescription, setPastaDescription] = useInput("");
+    const [pasta, setPasta] = useState({});
+    const [status, addPasta] = useAddItem();
+
+    const onChange = (evt) => {
+        setPasta({ ...pasta, [evt.target.name]: evt.target.value })
+    }
 
     const addNewPasta = async (evt) => {
         evt.preventDefault();
-        const newPasta = {
-            price: pastaPrice,
-            img: pastaImg,
-            name: pastaName,
-            description: pastaDescription,
-        }
 
-        const response = await fetch("http://localhost:5000/pasta", {
-            method: "POST",
-            body: JSON.stringify(newPasta),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await response.json();
+        addPasta("http://localhost:5000/pasta", pasta);
     }
 
     return (
         <form onSubmit={addNewPasta}>
-            <input type="text" value={pastaName} onChange={setPastaName} />
-            <input type="text" value={pastaPrice} onChange={setPastaPrice} />
-            <input type="text" value={pastaImg} onChange={setPastaImg} />
-            <input type="text" value={pastaDescription} onChange={setPastaDescription} />
+            <Input name="name" value={pasta?.name} onChange={onChange} placeholder="pasta name" />
+            <Input name="img" value={pasta?.img} onChange={onChange} placeholder="pasta img" />
+            <Input name="description" value={pasta?.description} onChange={onChange} placeholder="pasta description" />
+            <Input name="price" value={pasta?.price} onChange={onChange} placeholder="pasta price" />
             <button type="submit">Add New Past</button>
         </form>
     )

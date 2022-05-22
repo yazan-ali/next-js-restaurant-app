@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import MealList from '../../../components/mealList';
 import PizzaCard from '../../../components/pizzaCard';
 
-function PizzaListByType({ pizzaList }) {
+function PizzaListByType({ pizzaList, type }) {
 
     const router = useRouter();
 
@@ -10,13 +10,19 @@ function PizzaListByType({ pizzaList }) {
         return <h1>Loading...</h1>
     }
 
+    const pizzaType = type[0].toUpperCase() + type.slice(1)
+
+
     return (
         <>
             <MealList
                 meals={pizzaList}
                 MealCard={PizzaCard}
                 deleteReqUrl="http://localhost:5000/pizza"
-                img="https://martjackamstorage.azureedge.net/am-resources/c79bc8ac-4c69-460f-829b-4d40568d0cca/Images/userimages/banners-may/Pasta_Banner.jpg"
+                img="https://martjackamstorage.azureedge.net/am-resources/c79bc8ac-4c69-460f-829b-4d40568d0cca/Images/userimages/banners-may/Pizza_Banner-en.jpg"
+                pageTitle={`Pizza House | Pizza | ${pizzaType}`}
+                pageDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
             />
         </>
     )
@@ -46,7 +52,8 @@ export async function getStaticProps(context) {
 
     return {
         props: {
-            pizzaList: data
+            pizzaList: data,
+            type: params.pizzaType
         },
         revalidate: 30,
     }

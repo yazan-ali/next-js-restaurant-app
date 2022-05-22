@@ -1,0 +1,131 @@
+@import '_variableAndMixin';
+
+.navbar {
+    height: 65px;
+    width: 100%;
+    z-index: 1;
+    background-color: $item-secondary-color;
+    margin: 20px 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    @include responsive-design(952px) {
+        border-radius: 0;
+        margin: 0;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .brand_name {
+        color: $text-secondary-color;
+        font-size: 35px;
+        line-height: 65px;
+        padding: 0 20px;
+        font-weight: bold;
+
+        @include responsive-design(952px) {
+            font-size: 30px;
+            padding-left: 10px;
+        }
+    }
+
+    ul {
+        margin-top: 25px;
+        display: flex;
+
+        @include responsive-design(952px) {
+            position: relative;
+            flex-direction: column;
+            width: 100%;
+            left: -100%;
+            transition: all 0.5s;
+            background-color: $item-secondary-color;
+            margin: 0;
+            padding-left: 0;
+        }
+
+        li {
+            display: inline-block;
+            margin: 0 5px;
+            font-weight: 600;
+
+            @include responsive-design(952px) {
+                display: block;
+                margin: 20px 0;
+            }
+
+            a {
+                color: $text-secondary-color;
+                font-size: 17px;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 7px 13px;
+                border-radius: 3px;
+
+                &:hover {
+                    transition: all 0.5s ease-in-out;
+                    color: $text-secondary-color;
+
+                    @include responsive-design(952px) {
+                        background-color: none;
+                        color: $text-secondary-color;
+                    }
+                }
+
+                @include responsive-design(952px) {
+                    font-size: 16px;
+                }
+
+                @include responsive-design(858px) {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .login_btn {
+        background-color: $item-secondary-color;
+        margin-left: auto;
+
+        @include responsive-design(952px) {
+            margin: 0;
+        }
+
+        a {
+            color: $text-secondary-color;
+            font-size: 17px;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 7px 13px;
+
+            @include responsive-design(952px) {
+                display: block;
+                line-height: 20px;
+            }
+        }
+    }
+}
+
+.checkBtn {
+    font-size: 30px;
+    color: $text-secondary-color;
+    line-height: 65px;
+    float: right;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+
+    @include responsive-design(952px) {
+        display: block;
+    }
+}
+
+.check {
+    display: none;
+
+    &:checked~ul {
+        left: 0;
+    }
+}

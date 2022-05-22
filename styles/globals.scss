@@ -1,0 +1,14 @@
+@import "_config";
+@import "_variableAndMixin";
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  @include responsive-design(1000px) {
+    width: 100%;
+  }
+}

@@ -1,37 +1,29 @@
-import useInput from '../../hooks/useInput';
+import { useState } from 'react';
+import useAddItem from '../../hooks/useAddItem';
+import Input from '../../components/input';
+
 function AddNewDessert() {
 
-    const [dessertName, setDessertName] = useInput("");
-    const [dessertPrice, setDessertPrice] = useInput("");
-    const [dessertImg, setDessertImg] = useInput("");
-    const [dessertDescription, setDessertDescription] = useInput("");
+    const [dessert, setDessert] = useState({});
+    const [status, addDessert] = useAddItem();
+
+    const onChange = (evt) => {
+        setDessert({ ...dessert, [evt.target.name]: evt.target.value })
+    }
+
 
     const addNewDessert = async (evt) => {
         evt.preventDefault();
-        const newDessert = {
-            price: dessertPrice,
-            img: dessertImg,
-            name: dessertName,
-            description: dessertDescription,
-        }
 
-        const response = await fetch("http://localhost:5000/desserts", {
-            method: "POST",
-            body: JSON.stringify(newDessert),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        const data = await response.json();
-        console.log(data)
+        addDessert("http://localhost:5000/desserts", dessert);
     }
 
     return (
         <form onSubmit={addNewDessert}>
-            <input type="text" value={dessertName} onChange={setDessertName} />
-            <input type="text" value={dessertPrice} onChange={setDessertPrice} />
-            <input type="text" value={dessertImg} onChange={setDessertImg} />
-            <input type="text" value={dessertDescription} onChange={setDessertDescription} />
+            <Input name="name" value={dessert?.name} onChange={onChange} placeholder="dessert name" />
+            <Input name="img" value={dessert?.img} onChange={onChange} placeholder="dessert img" />
+            <Input name="description" value={dessert?.description} onChange={onChange} placeholder="dessert description" />
+            <Input name="price" value={dessert?.price} onChange={onChange} placeholder="dessert price" />
             <button type="submit">Add New Dessert</button>
         </form>
     )
