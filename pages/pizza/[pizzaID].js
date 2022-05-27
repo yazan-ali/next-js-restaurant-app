@@ -1,53 +1,52 @@
 import { useRouter } from 'next/router';
 import PizzaPage from '../../components/pizzaPage';
 
-function Pizza() {
+function Pizza({ pizza, starters }) {
 
-    // const router = useRouter();
+    const router = useRouter();
 
-    // if (router.isFallback) {
-    //     return <h1>Loading...</h1>
-    // }
+    if (router.isFallback) {
+        return <h1>Loading...</h1>
+    }
 
     return (
         <div>
-            hfjmg
-            {/* <PizzaPage pizza={pizza} starters={starters} /> */}
+            <PizzaPage pizza={pizza} starters={starters} />
         </div>
     )
 }
 
 export default Pizza;
 
-// export async function getStaticPaths() {
+export async function getStaticPaths() {
 
-//     return {
-//         paths: [
-//             { params: { pizzaID: "5f465cac3e4344556c66a29c" } },
-//             { params: { pizzaID: "5f50da598a692200178d525e" } },
-//         ],
-//         fallback: true
-//     }
-// }
+    return {
+        paths: [
+            { params: { pizzaID: "5f465cac3e4344556c66a29c" } },
+            { params: { pizzaID: "5f50da598a692200178d525e" } },
+        ],
+        fallback: true
+    }
+}
 
-// export async function getStaticProps(context) {
+export async function getStaticProps(context) {
 
-//     const { params } = context;
+    const { params } = context;
 
-//     const urls = [`https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/pizza/${params.pizzaID}`, `https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/starters`];
-
-
-//     const responses = await Promise.all(urls.map(url => fetch(url)))
-//     const data = await Promise.all(responses.map(res => res.json()))
-
-//     if (!data[0]._id || data[1].length === 0) return { notFound: true }
+    const urls = [`https://limitless-beyond-06124.herokuapp.com/pizza/${params.pizzaID}`, "https://limitless-beyond-06124.herokuapp.com/starters"];
 
 
-//     return {
-//         props: {
-//             pizza: data[0],
-//             starters: data[1]
-//         },
-//         revalidate: 30,
-//     }
-// }
+    const responses = await Promise.all(urls.map(url => fetch(url)))
+    const data = await Promise.all(responses.map(res => res.json()))
+
+    if (!data[0]._id || data[1].length === 0) return { notFound: true }
+
+
+    return {
+        props: {
+            pizza: data[0],
+            starters: data[1]
+        },
+        revalidate: 30,
+    }
+}

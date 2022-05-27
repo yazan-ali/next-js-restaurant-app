@@ -6,34 +6,34 @@ import { useSession } from 'next-auth/react';
 
 function EditDeal({ Deal, dealID }) {
 
-    // const { data: session, status } = useSession()
-    // const [message, updateDeal] = useItemUpdate();
-    // const [deal, setDeal] = useState(Deal);
+    const { data: session, status } = useSession()
+    const [message, updateDeal] = useItemUpdate();
+    const [deal, setDeal] = useState(Deal);
 
-    // if (status === "loading") {
-    //     return <h1>Loading...</h1>
-    // }
+    if (status === "loading") {
+        return <h1>Loading...</h1>
+    }
 
-    // if (!session || !session.user.isAdmin) {
-    //     return Router.push("/")
-    // }
+    if (!session || !session.user.isAdmin) {
+        return Router.push("/")
+    }
 
-    // const onChange = (evt) => {
-    //     setDeal({ ...deal, [evt.target.name]: evt.target.value })
-    // }
+    const onChange = (evt) => {
+        setDeal({ ...deal, [evt.target.name]: evt.target.value })
+    }
 
-    // const submitUpdatedDeal = async (evt) => {
-    //     evt.preventDefault();
+    const submitUpdatedDeal = async (evt) => {
+        evt.preventDefault();
 
-    //     updateDeal(`/api/deals/${dealID}`, deal);
-    // }
+        updateDeal(`/api/deals/${dealID}`, deal);
+    }
 
     return (
-        <form>
-            {/* <Input name="name" value={deal?.name} onChange={onChange} label="deal name" />
+        <form onSubmit={submitUpdatedDeal}>
+            <Input name="name" value={deal?.name} onChange={onChange} label="deal name" />
             <Input name="img" value={deal?.img} onChange={onChange} label="deal img" />
             <Input name="description" value={deal?.description} onChange={onChange} label="deal description" />
-            <Input name="price" value={deal?.price} onChange={onChange} label="deal price" /> */}
+            <Input name="price" value={deal?.price} onChange={onChange} label="deal price" />
             <button style={{ margin: "10px 0" }} className="primary_btn" type="submit">Update deal</button>
         </form>
     )
@@ -41,18 +41,18 @@ function EditDeal({ Deal, dealID }) {
 
 export default EditDeal;
 
-// export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
 
-//     const { query } = context;
-//     const { dealID } = query;
+    const { query } = context;
+    const { dealID } = query;
 
-//     const response = await fetch(`https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/deals/${dealID}`);
-//     const data = await response.json();
+    const response = await fetch(`http://localhost:3000/api/deals/${dealID}`);
+    const data = await response.json();
 
-//     return {
-//         props: {
-//             Deal: data,
-//             dealID
-//         },
-//     }
-// }
+    return {
+        props: {
+            Deal: data,
+            dealID
+        },
+    }
+}

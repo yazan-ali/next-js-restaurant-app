@@ -1,7 +1,5 @@
 import MealList from '../../components/mealList';
 import MealCard from '../../components/mealCard';
-import DB_Connect from "../../db-connect";
-import Pasta from "../../models/pastaModel"
 
 function PastaList({ pastaList }) {
 
@@ -23,16 +21,11 @@ export default PastaList;
 
 
 export async function getStaticProps() {
-    // const response = await fetch(`https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/pasta`);
-    // const data = await response.json();
-    await DB_Connect();
-    // try {
-    const pasta = await Pasta.find({})
-    // } catch (err) {
-    // }
+    const response = await fetch("https://limitless-beyond-06124.herokuapp.com/pasta");
+    const data = await response.json();
     return {
         props: {
-            pastaList: pasta
+            pastaList: data
         },
         revalidate: 30,
     }
