@@ -55,6 +55,11 @@
                 margin: 20px 0;
             }
 
+            i {
+                color: #fff;
+                cursor: pointer;
+            }
+
             a {
                 color: $text-secondary-color;
                 font-size: 17px;
@@ -62,13 +67,14 @@
                 text-decoration: none;
                 padding: 7px 13px;
                 border-radius: 3px;
+                transition: all 0.1s ease-in-out;
 
                 &:hover {
-                    transition: all 0.5s ease-in-out;
-                    color: $text-secondary-color;
+                    background-color: $item-primary-color;
+                    color: $text-primary-color;
 
                     @include responsive-design(952px) {
-                        background-color: none;
+                        background-color: $item-secondary-color;
                         color: $text-secondary-color;
                     }
                 }

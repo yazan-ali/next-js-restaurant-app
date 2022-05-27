@@ -1,9 +1,13 @@
 import useInput from '../../../hooks/useInput';
 import useItemUpdate from '../../../hooks/useUpdateItem';
+import Input from '../../../components/input';
+import Router from 'next/router';
+import { useSession } from 'next-auth/react';
 
 function EditPizza({ pizza, pizzaID }) {
 
-    const [status, updatePizza] = useItemUpdate();
+    const { data: session, status } = useSession()
+    const [message, updatePizza] = useItemUpdate();
 
     const [pizzaName, setPizzaName] = useInput(pizza.name);
     const [pizzaType, setPizzaType] = useInput(pizza.type);
@@ -25,6 +29,13 @@ function EditPizza({ pizza, pizzaID }) {
     const [type5Size2Price, setType5Size2Price] = useInput(pizza.price.type_5.large);
     const [type5Size3Price, setType5Size3Price] = useInput(pizza.price.type_5.small);
 
+    if (status === "loading") {
+        return <h1>Loading...</h1>
+    }
+
+    if (!session || !session.user.isAdmin) {
+        return Router.push("/")
+    }
 
     const submitUpdatedPizza = async (evt) => {
         evt.preventDefault();
@@ -51,31 +62,31 @@ function EditPizza({ pizza, pizzaID }) {
             type_5_small_size: type5Size3Price,
         }
 
-        updatePizza(`http://localhost:5000/pizza/${pizzaID}`, updatedPizza);
+        updatePizza(`/api/pizza/${pizzaID}`, updatedPizza);
     }
 
     return (
         <form onSubmit={submitUpdatedPizza}>
-            <input type="text" value={pizzaName} onChange={setPizzaName} />
-            <input type="text" value={pizzaType} onChange={setPizzaType} />
-            <input type="text" value={pizzaImg} onChange={setPizzaImg} />
-            <input type="text" value={pizzaDescription} onChange={setPizzaDescription} />
-            <input type="text" value={type1Size1Price} onChange={setType1Size1Price} />
-            <input type="text" value={type1Size2Price} onChange={setType1Size2Price} />
-            <input type="text" value={type1Size3Price} onChange={setType1Size3Price} />
-            <input type="text" value={type2Size1Price} onChange={setType2Size1Price} />
-            <input type="text" value={type2Size2Price} onChange={setType2Size2Price} />
-            <input type="text" value={type2Size3Price} onChange={setType2Size3Price} />
-            <input type="text" value={type3Size1Price} onChange={setType3Size1Price} />
-            <input type="text" value={type3Size2Price} onChange={setType3Size2Price} />
-            <input type="text" value={type3Size3Price} onChange={setType3Size3Price} />
-            <input type="text" value={type4Size1Price} onChange={setType4Size1Price} />
-            <input type="text" value={type4Size2Price} onChange={setType4Size2Price} />
-            <input type="text" value={type4Size3Price} onChange={setType4Size3Price} />
-            <input type="text" value={type5Size1Price} onChange={setType5Size1Price} />
-            <input type="text" value={type5Size2Price} onChange={setType5Size2Price} />
-            <input type="text" value={type5Size3Price} onChange={setType5Size3Price} />
-            <button type="submit">Update Pizza</button>
+            <Input name="name" label="pizza name" value={pizza?.name} onChange={setPizzaName} />
+            <Input name="type" label="pizza type" value={pizza?.type} onChange={setPizzaType} />
+            <Input name="img" label="pizza image" value={pizza?.img} onChange={setPizzaImg} />
+            <Input name="description" label="pizza description" value={pizza?.description} onChange={setPizzaDescription} />
+            <Input name="type_1_medium_size" label="dough type 1 medium size price" value={type1Size1Price} onChange={setType1Size1Price} />
+            <Input name="type_1_large_size" label="dough type 1 large size  price" value={type1Size2Price} onChange={setType1Size2Price} />
+            <Input name="type_1_small_size" label="dough type 1 small size  price" value={type1Size3Price} onChange={setType1Size3Price} />
+            <Input name="type_2_medium_size" label="dough type 2 medium size price" value={type2Size1Price} onChange={setType2Size1Price} />
+            <Input name="type_2_large_size" label="dough type 2 large size price" value={type2Size2Price} onChange={setType2Size2Price} />
+            <Input name="type_2_small_size" label="dough type 2 small size price" value={type2Size3Price} onChange={setType2Size3Price} />
+            <Input name="type_3_medium_size" label="dough type 3 medium size price" value={type3Size1Price} onChange={setType3Size1Price} />
+            <Input name="type_3_large_size" label="dough type 3 large size price" value={type3Size2Price} onChange={setType3Size2Price} />
+            <Input name="type_3_small_size" label="dough type 3 small size price" value={type3Size3Price} onChange={setType3Size3Price} />
+            <Input name="type_4_medium_size" label="dough type 4 medium size price" value={type4Size1Price} onChange={setType4Size1Price} />
+            <Input name="type_4_large_size" label="dough type 4 large size price" value={type4Size2Price} onChange={setType4Size2Price} />
+            <Input name="type_4_small_size" label="dough type 4 small size price" value={type4Size3Price} onChange={setType4Size3Price} />
+            <Input name="type_5_medium_size" label="dough type 5 medium size price" value={type5Size1Price} onChange={setType5Size1Price} />
+            <Input name="type_5_large_size" label="dough type 5 large size price" value={type5Size2Price} onChange={setType5Size2Price} />
+            <Input name="type_5_small_size" label="dough type 5 small size price" value={type5Size3Price} onChange={setType5Size3Price} />
+            <button style={{ margin: "10px 0" }} className="primary_btn" type="submit">Update Pizza</button>
         </form>
     )
 }
@@ -87,7 +98,7 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const { pizzaID } = query;
 
-    const response = await fetch(`http://localhost:5000/pizza/${pizzaID}`);
+    const response = await fetch(`http://localhost:3000/api/pizza/${pizzaID}`);
     const data = await response.json();
 
     return {

@@ -1,6 +1,12 @@
-import styles from '../styles/meal-list.module.scss'
+import styles from '../styles/meal-list.module.scss';
+import AddToCartBtn from './addToCartBtn';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
-function MealCard({ meal, deleteMeal, deleteReqUrl }) {
+function MealCard({ meal, mealType, deleteMeal, deleteReqUrl }) {
+
+    const { data: session, status } = useSession();
+
     return (
         <div className={styles.meal_card}>
             <div>
@@ -10,9 +16,18 @@ function MealCard({ meal, deleteMeal, deleteReqUrl }) {
             <div>
                 <h3>{meal.name}</h3>
                 <p>{meal.description}</p>
-                <button type="button" className={styles.primary_btn}>Add to cart</button>
+                <AddToCartBtn meal={meal} user_id="123" total={meal.price} />
             </div>
-            <span onClick={() => deleteMeal(deleteReqUrl, meal._id)}>Delete</span>
+            {
+                session && session.user.isAdmin && (
+                    <>
+                        <span onClick={() => deleteMeal(deleteReqUrl, meal._id)}>Delete</span>
+                        <Link href={`/${mealType}/edit/${meal._id}`} passHref>
+                            <span type="button">Edit</span>
+                        </Link>
+                    </>
+                )
+            }
         </div>
     )
 }

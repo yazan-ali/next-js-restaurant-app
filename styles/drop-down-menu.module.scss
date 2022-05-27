@@ -1,0 +1,44 @@
+@import '_variableAndMixin';
+
+.dropdown_menu {
+    font-size: 14px;
+    min-width: 90px;
+    color: #fff;
+}
+
+.selected_item {
+    border-radius: 5px;
+    background-color: $text-primary-color;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.menu_list {
+    border: 2px solid $item-secondary-color;
+    border-radius: 5px;
+    color: $text-primary-color;
+    font-weight: 700;
+
+    .active_item {
+        background-color: #F6F6F6;
+    }
+
+    span {
+        padding: 10px;
+        cursor: pointer;
+        display: block;
+
+        &:first-of-type {
+            border-radius: 5px 5px 0 0;
+        }
+
+        &:last-of-type {
+            border-radius: 0 0 5px 5px;
+        }
+
+        &:hover {
+            background-color: #F6F6F6;
+        }
+    }
+}

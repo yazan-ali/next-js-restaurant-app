@@ -1,0 +1,69 @@
+@import '_variableAndMixin';
+
+.pizza_page_root {
+    width: 80%;
+    margin: 0 auto;
+    font-weight: 600;
+    margin: 20px auto;
+
+    @include responsive-design(952px) {
+        width: 95%;
+    }
+
+    .meal_list_img {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .pizza_card_container {
+        box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: flex;
+
+        @include responsive-design(952px) {
+            flex-direction: column;
+        }
+    }
+
+    .pizza_card {
+        width: 55%;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        color: #6D6D6D;
+        border-right: 2px gray solid;
+
+        @include responsive-design(952px) {
+            width: 100%;
+            border-right: none;
+            border-bottom: 2px gray solid;
+            padding-bottom: 15px;
+        }
+
+        .pizza_name {
+            color: $text-primary-color;
+        }
+
+        .price {
+            font-size: 16px;
+        }
+    }
+
+    .menus_container {
+        display: flex;
+        gap: 10px;
+    }
+
+    .starters {
+        @include responsive-design(952px) {
+            width: 100%;
+            padding-left: 0;
+        }
+
+        width: 45%;
+        color: #474747;
+        padding-left: 10px;
+    }
+}

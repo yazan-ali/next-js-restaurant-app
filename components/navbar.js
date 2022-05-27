@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import styles from '../styles/navbar.module.scss';
 import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 function Navbar() {
 
+    const { data: session, status } = useSession();
     const checkRef = useRef();
 
     const closeNavbar = () => {
@@ -42,16 +44,46 @@ function Navbar() {
                 </li>
 
                 <span className={styles.login_btn}>
-                    <li>
-                        <Link href="/desserts">
-                            <a>Login</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/deals">
-                            <a>Sign up</a>
-                        </Link>
-                    </li>
+                    {
+                        status !== "authunticated" && !session && (
+                            <>
+                                <li>
+                                    <Link href='/api/auth/signin'>
+                                        <a onClick={e => {
+                                            e.preventDefault;
+                                            signIn()
+                                        }}>Log In</a>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href='/register'>
+                                        <a>Sign Up</a>
+                                    </Link>
+                                </li>
+                            </>
+                        )
+                    }
+
+                    {
+                        session && status !== "unauthenticated" && (
+                            <>
+                                <li>
+                                    <Link href='/cart'>
+                                        <i className="fas fa-shopping-cart"></i>
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href='/api/auth/signout'>
+                                        <a onClick={e => {
+                                            e.preventDefault;
+                                            signOut()
+                                        }}>LogOut</a>
+                                    </Link>
+                                </li>
+                            </>
+                        )
+                    }
+
                 </span>
             </ul>
         </nav>

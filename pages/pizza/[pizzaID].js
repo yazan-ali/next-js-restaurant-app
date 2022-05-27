@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
+import PizzaPage from '../../components/pizzaPage';
 
-function Pizza({ pizza }) {
+function Pizza({ pizza, starters }) {
 
     const router = useRouter();
 
@@ -9,9 +10,8 @@ function Pizza({ pizza }) {
     }
 
     return (
-        <div key={pizza._id}>
-            <h1>{pizza.name}</h1>
-            <p>{pizza.description}</p>
+        <div>
+            <PizzaPage pizza={pizza} starters={starters} />
         </div>
     )
 }
@@ -33,14 +33,19 @@ export async function getStaticProps(context) {
 
     const { params } = context;
 
-    const response = await fetch(`http://localhost:5000/pizza/${params.pizzaID}`);
-    const data = await response.json();
+    const urls = [`http://localhost:3000/api/pizza/${params.pizzaID}`, "http://localhost:3000/api/starters"];
 
-    if (!data._id) return { notFound: true }
+
+    const responses = await Promise.all(urls.map(url => fetch(url)))
+    const data = await Promise.all(responses.map(res => res.json()))
+
+    if (!data[0]._id || data[1].length === 0) return { notFound: true }
+
 
     return {
         props: {
-            pizza: data
+            pizza: data[0],
+            starters: data[1]
         },
         revalidate: 30,
     }
