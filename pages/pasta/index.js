@@ -28,13 +28,7 @@ export async function getStaticProps() {
     await DB_Connect();
     // try {
     const pasta = await Pasta.find({})
-    res.status(200).json(pasta)
     // } catch (err) {
-    res.json({
-        success: false,
-        message: "An error has occurred"
-    });
-    console.log(err)
     // }
     return {
         props: {
