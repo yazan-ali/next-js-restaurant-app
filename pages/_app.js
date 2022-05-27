@@ -1,17 +1,16 @@
 import '../styles/globals.scss';
 import Navbar from '../components/navbar';
+import { SessionProvider } from "next-auth/react";
 import Head from 'next/head';
-import { SessionProvider } from "next-auth/react"
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
   return (
     <SessionProvider session={session}>
       <div className="container">
-        {/* <Head>
-          <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-            integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-        </Head> */}
+        <Head>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        </Head>
         <Navbar />
         <Component {...pageProps} />
       </div>

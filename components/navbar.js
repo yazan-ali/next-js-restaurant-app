@@ -21,7 +21,7 @@ function Navbar() {
                 <label className={styles.brand_name}>Pizza House</label>
             </div>
             <input ref={checkRef} type="checkbox" id="check" className={styles.check} />
-            <ul style={{ flexGrow: '1' }}>
+            <ul style={{ flexGrow: '1' }} className={`${!session && status === "loading" ? styles.loading : styles.loaded}`}>
                 <li onClick={closeNavbar}>
                     <Link href="/pizza">
                         <a>Pizza</a>

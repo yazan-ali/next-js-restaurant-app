@@ -26,6 +26,10 @@
   text-transform: capitalize;
   outline: none;
 
+  @include responsive-design(850px) {
+    font-size: 14px;
+  }
+
   &:disabled {
     background-color: #C0C0C0;
     cursor: not-allowed;

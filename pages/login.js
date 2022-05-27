@@ -13,10 +13,6 @@ function Login() {
 
     const handleLogin = async (evt) => {
         evt.preventDefault();
-        const loginInfo = {
-            username: username,
-            password: password,
-        }
 
         setIsLoading(true)
 

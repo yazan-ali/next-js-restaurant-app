@@ -58,6 +58,10 @@
             i {
                 color: #fff;
                 cursor: pointer;
+
+                @include responsive-design(952px) {
+                    padding: 7px 13px;
+                }
             }
 
             a {
@@ -111,6 +115,16 @@
                 line-height: 20px;
             }
         }
+    }
+
+    .loading {
+        opacity: 0;
+        transition: all 0.2s ease-in;
+    }
+
+    .loaded {
+        opacity: 1;
+        transition: all 0.2s ease-in;
     }
 }
 

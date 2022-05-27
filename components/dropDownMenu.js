@@ -24,9 +24,9 @@ function DropDownMenu({ list, placeholder, onChange }) {
                 className={styles.selected_item}>
                 {expandList ? placeholder : activeItem}  {
                     expandList ?
-                        <i className="far fa-chevron-up"></i>
+                        <i className="fa-solid fa-caret-up"></i>
                         :
-                        <i className="far fa-chevron-down"></i>
+                        <i className="fa-solid fa-caret-down"></i>
                 }
             </p >
             {expandList &&

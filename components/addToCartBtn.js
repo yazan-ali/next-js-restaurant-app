@@ -40,7 +40,10 @@ function AddToCartBtn({ meal, starters, total, size, dough_type }) {
     return (
         <>
             <p style={{ color: "gray", padding: 10, fontSize: 15 }}>{message}</p>
-            <button type="button" className="primary_btn" onClick={addItemToCart}>Add to cart</button>
+            <button
+                type="button"
+                className="primary_btn"
+                onClick={addItemToCart}>{isLoading ? "Loading..." : "Add to cart"}</button>
         </>
     )
 }

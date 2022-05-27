@@ -42,18 +42,41 @@
             padding-bottom: 15px;
         }
 
-        .pizza_name {
-            color: $text-primary-color;
+        img {
+            max-width: 180px;
+
+            @include responsive-design(850px) {
+                width: 120px;
+            }
         }
 
-        .price {
+        p {
+            @include responsive-design(850px) {
+                font-size: 17px;
+            }
+        }
+
+        .pizza_name {
+            color: $text-primary-color;
+
+            @include responsive-design(850px) {
+                font-size: 19px;
+            }
+        }
+
+        @include responsive-design(850px) {
             font-size: 16px;
         }
     }
 
     .menus_container {
         display: flex;
+        flex-wrap: wrap;
         gap: 10px;
+
+        @include responsive-design(952px) {
+            gap: 1px;
+        }
     }
 
     .starters {
