@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const { dessertID } = query;
 
-    const response = await fetch(`${process.env.VERCEL_URL}/desserts/${dessertID}`);
+    const response = await fetch(`https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/desserts/${dessertID}`);
     const data = await response.json();
 
     return {

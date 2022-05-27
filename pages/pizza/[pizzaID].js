@@ -33,7 +33,7 @@ export async function getStaticProps(context) {
 
     const { params } = context;
 
-    const urls = [`${process.env.VERCEL_URL}/api/pizza/${params.pizzaID}`, `${process.env.VERCEL_URL}/api/starters`];
+    const urls = [`https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/pizza/${params.pizzaID}`, `https://next-js-restaurant-pto3ljysn-yazan-ali.vercel.app/api/starters`];
 
 
     const responses = await Promise.all(urls.map(url => fetch(url)))
