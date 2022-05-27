@@ -22,7 +22,7 @@ export default Deals;
 
 
 export async function getStaticProps() {
-    const response = await fetch("/api/deals");
+    const response = await fetch("https://pizza-house.vercel.app/api/deals");
     const data = await response.json();
     return {
         props: {

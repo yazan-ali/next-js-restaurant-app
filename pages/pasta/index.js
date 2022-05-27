@@ -21,7 +21,7 @@ export default PastaList;
 
 
 export async function getStaticProps() {
-    const response = await fetch("/api/pasta");
+    const response = await fetch("https://pizza-house.vercel.app/api/pasta");
     const data = await response.json();
     return {
         props: {
