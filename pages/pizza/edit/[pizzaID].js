@@ -98,7 +98,7 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const { pizzaID } = query;
 
-    const response = await fetch(`/api/pizza/${pizzaID}`);
+    const response = await fetch(`vercel.com/yazan-ali/pizza-house/api/pizza/${pizzaID}`);
     const data = await response.json();
 
     return {
