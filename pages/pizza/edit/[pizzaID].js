@@ -66,7 +66,7 @@ function EditPizza({ pizza, pizzaID }) {
     // }
 
     return (
-        <form onSubmit={submitUpdatedPizza}>
+        <form>
             {/* <Input name="name" label="pizza name" value={pizza?.name} onChange={setPizzaName} />
             <Input name="type" label="pizza type" value={pizza?.type} onChange={setPizzaType} />
             <Input name="img" label="pizza image" value={pizza?.img} onChange={setPizzaImg} />
