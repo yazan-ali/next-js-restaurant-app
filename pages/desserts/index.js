@@ -21,7 +21,7 @@ export default DessertList;
 
 
 export async function getStaticProps() {
-    const response = await fetch("http://localhost:3000/api/desserts");
+    const response = await fetch("/api/desserts");
     const data = await response.json();
     return {
         props: {

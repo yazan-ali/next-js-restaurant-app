@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
     const { query } = context;
     const { dealID } = query;
 
-    const response = await fetch(`http://localhost:3000/api/deals/${dealID}`);
+    const response = await fetch(`/api/deals/${dealID}`);
     const data = await response.json();
 
     return {

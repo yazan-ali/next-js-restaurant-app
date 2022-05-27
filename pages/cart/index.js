@@ -13,7 +13,7 @@ const fetcher = async (url) => {
 function Cart() {
 
     const { data: session, status } = useSession()
-    const { data, error } = useSWR(`http://localhost:3000/api/cart`, fetcher)
+    const { data, error } = useSWR(`/api/cart`, fetcher)
 
     if (!session && status !== "loading") {
         return Router.push("/")

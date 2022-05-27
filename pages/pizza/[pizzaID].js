@@ -33,7 +33,7 @@ export async function getStaticProps(context) {
 
     const { params } = context;
 
-    const urls = [`http://localhost:3000/api/pizza/${params.pizzaID}`, "http://localhost:3000/api/starters"];
+    const urls = [`/api/pizza/${params.pizzaID}`, "/api/starters"];
 
 
     const responses = await Promise.all(urls.map(url => fetch(url)))

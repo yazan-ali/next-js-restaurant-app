@@ -21,7 +21,7 @@ export default PastaList;
 
 
 export async function getStaticProps() {
-    const response = await fetch("http://localhost:3000/api/pasta");
+    const response = await fetch("/api/pasta");
     const data = await response.json();
     return {
         props: {
