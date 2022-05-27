@@ -1,5 +1,5 @@
 import DB_Connect from "../../../db-connect";
-import Pasta from "../../../models/PastaModel"
+import Pasta from "../../../models/pastaModel"
 
 const handler = async (req, res) => {
 
