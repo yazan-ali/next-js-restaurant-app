@@ -13,7 +13,7 @@ function CartItem({ cartItem }) {
         <div className={styles.cart_item}>
             <section>
                 <p className={styles.qty}>x{qty}</p>
-                <img src={cartItem.meal.img} />
+                <img src={cartItem.meal.img} alt={cartItem.meal.name} />
                 <p className={styles.price}>{cartItem.total * qty} JD</p>
             </section>
             <section>
