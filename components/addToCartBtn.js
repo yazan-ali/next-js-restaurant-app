@@ -9,6 +9,11 @@ function AddToCartBtn({ meal, starters, total, size, dough_type }) {
 
     const addItemToCart = async () => {
 
+        if (!session) {
+            setMessage("You should be logged in to add items to the shopping cart")
+            return;
+        }
+
         setIsLoading(true);
 
         const newCartItem = {

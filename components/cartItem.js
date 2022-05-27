@@ -17,7 +17,7 @@ function CartItem({ cartItem }) {
                 <p className={styles.price}>{cartItem.total * qty} JD</p>
             </section>
             <section>
-                <h3 style={{ cursor: "pointer" }}>{cartItem.meal.name}</h3>
+                <h3 className={styles.pizza_name} style={{ cursor: "pointer" }}>{cartItem.meal.name}</h3>
                 <p>{cartItem.meal.description}</p>
                 <div>
                     <span>{cartItem.meal.size}</span>

@@ -55,7 +55,7 @@ function Navbar() {
                                         }}>Log In</a>
                                     </Link>
                                 </li>
-                                <li>
+                                <li onClick={closeNavbar}>
                                     <Link href='/register'>
                                         <a>Sign Up</a>
                                     </Link>
@@ -67,7 +67,7 @@ function Navbar() {
                     {
                         session && status !== "unauthenticated" && (
                             <>
-                                <li>
+                                <li onClick={closeNavbar}>
                                     <Link href='/cart'>
                                         <i className="fas fa-shopping-cart"></i>
                                     </Link>

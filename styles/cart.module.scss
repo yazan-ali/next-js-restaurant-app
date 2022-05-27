@@ -1,7 +1,9 @@
 @import '_variableAndMixin';
 
 .shopping_cart {
+    width: 100%;
     padding: 30px 0;
+    background-color: red;
 }
 
 .cart_item {
@@ -20,6 +22,10 @@
         width: 95%;
     }
 
+    @include responsive-design(500px) {
+        flex-wrap: wrap;
+    }
+
     &:first-of-type {
         border-radius: 10px 10px 0 0;
     }
@@ -30,21 +36,43 @@
 
     img {
         max-width: 180px;
+
+        @include responsive-design(850px) {
+            width: 120px;
+        }
     }
 
     h3 {
         font-size: 25px;
+
+        @include responsive-design(850px) {
+            font-size: 19px;
+        }
     }
 
     p {
         font-size: 20px;
         font-weight: 600;
         color: #6D6D6D;
+
+        @include responsive-design(850px) {
+            font-size: 16px;
+        }
+    }
+
+    span {
+        @include responsive-design(850px) {
+            font-size: 15px;
+        }
     }
 
     .price {
         font-size: 22px;
-        margin-left: 50px;
+        margin-left: 30px;
+
+        @include responsive-design(850px) {
+            font-size: 19px;
+        }
     }
 
     .qty {
@@ -56,6 +84,10 @@
         display: flex;
         gap: 10px;
         font-size: 25px;
+
+        @include responsive-design(850px) {
+            font-size: 19px;
+        }
     }
 
     .starters {
