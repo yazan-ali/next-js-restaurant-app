@@ -1,7 +1,7 @@
 import MealList from '../../components/mealList';
 import MealCard from '../../components/mealCard';
-import DB_Connect from "../../../db-connect";
-import Pasta from "../../../models/pastaModel"
+import DB_Connect from "../../db-connect";
+import Pasta from "../../models/pastaModel"
 
 function PastaList({ pastaList }) {
 
