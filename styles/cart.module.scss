@@ -3,7 +3,10 @@
 .shopping_cart {
     width: 100%;
     padding: 30px 0;
-    background-color: red;
+
+    @include responsive-design(750px) {
+        background-color: $item-secondary-color;
+    }
 }
 
 .cart_item {
@@ -22,16 +25,14 @@
         width: 95%;
     }
 
-    @include responsive-design(500px) {
-        flex-wrap: wrap;
-    }
-
     &:first-of-type {
-        border-radius: 10px 10px 0 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
     }
 
     &:last-of-type {
-        border-radius: 0 0 10px 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     img {
@@ -82,6 +83,8 @@
 
     .qty_btn {
         display: flex;
+        position: absolute;
+        right: 10px;
         gap: 10px;
         font-size: 25px;
 

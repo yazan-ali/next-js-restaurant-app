@@ -9,7 +9,7 @@ function MealCard({ meal, mealType, deleteMeal, deleteReqUrl }) {
 
     return (
         <div className={styles.meal_card}>
-            <div>
+            <div className={styles.img_price_container}>
                 <img src={meal.img} alt={meal.name} />
                 <p className={styles.price}>{meal.price} JD</p>
             </div>

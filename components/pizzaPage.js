@@ -59,8 +59,9 @@ function PizzaPage({ pizza, starters }) {
             <img className={styles.meal_list_img} src="https://martjackamstorage.azureedge.net/am-resources/c79bc8ac-4c69-460f-829b-4d40568d0cca/Images/userimages/banners-may/Pizza_Banner-en.jpg" alt="pizza house" />
             <div className={styles.pizza_card_container}>
                 <section className={styles.pizza_card}>
-                    <div>
+                    <div className={styles.img_price_container}>
                         <img src={pizza.img} alt={`${pizza.name} PIZZA`} />
+                        <p className={styles.price}>Total: {price} JD</p>
                     </div>
                     <div>
                         <h1 className={styles.pizza_name}>{pizza.name}</h1>
@@ -71,7 +72,6 @@ function PizzaPage({ pizza, starters }) {
                                 <li key={i} style={{ fontSize: 13 }}>{starter}</li>
                             ))}
                         </ul>
-                        <p className={styles.price}>Total: {price} JD</p>
                         <div className={styles.menus_container}>
                             <DropDownMenu
                                 list={pizza_size_options}
