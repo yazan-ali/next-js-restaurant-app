@@ -1,7 +1,6 @@
 import User from "../../models/userModel"
 import DB_Connect from "../../db-connect";
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken';
 
 function generateToken(user) {
     return jwt.sign({
