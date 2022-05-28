@@ -14,7 +14,7 @@ function useItemDelete(items) {
         setItemList(filteredItems);
     }
 
-    return [itemList, deleteStatus, handleItemDelete];
+    return [itemList, deleteStatus, handleItemDelete, setItemList];
 }
 
 
