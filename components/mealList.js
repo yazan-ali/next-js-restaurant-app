@@ -15,7 +15,9 @@ function MealList({ mealType, meals, MealCard, img, deleteReqUrl, pageTitle, pag
                 <title>{pageTitle}</title>
                 <meta name="description" content={pageDescription} />
             </Head>
-            <img className={styles.meal_list_img} src={img} alt="pizza-house" />
+            <div className={styles.meal_list_img}>
+                <img src={img} alt="pizza-house" />
+            </div>
             {
                 session?.user.isAdmin && <div style={{ margin: "25px 0" }}>
                     <Link href={`/${mealType}/add`} passHref>

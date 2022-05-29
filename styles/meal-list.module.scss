@@ -6,11 +6,17 @@
 
 
     .meal_list_img {
-        width: 100%;
-        border-radius: 10px;
+        @include flex-box(row, center);
+
+        img {
+            border-radius: 10px;
+            width: 100%;
+        }
 
         @include responsive-design(700px) {
-            border-radius: 0;
+            img {
+                width: 95%;
+            }
         }
     }
 }
